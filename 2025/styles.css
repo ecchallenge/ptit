@@ -1,0 +1,202 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(270deg, #ff0202, #defc01);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    color: #333;
+    text-align: center;
+}
+
+.information {
+    background-color: #f9f9f9; /* Màu nền nhạt */
+    border-left: 4px solid #cb0f0f; /* Đường viền trái màu xanh dương */
+    padding: 15px; /* Khoảng cách bên trong */
+    font-family: 'Arial', sans-serif; /* Kiểu chữ hiện đại */
+    line-height: 1.6; /* Khoảng cách dòng dễ đọc */
+    border-radius: 8px; /* Bo tròn các góc */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    color: #333; /* Màu chữ chính */
+}
+
+.information strong {
+    color: #cb0f0f; /* Tô đậm và làm nổi bật màu xanh dương */
+}
+
+.information em {
+    color: #e74c3c; /* Làm nổi bật màu đỏ cho đoạn văn */
+    font-style: italic;
+}
+
+.information ul {
+    margin: 15px 0 0 20px; /* Khoảng cách cho danh sách */
+    padding: 0;
+    list-style-type: disc; /* Kiểu gạch đầu dòng */
+}
+
+.information ul li {
+    margin-bottom: 5px; /* Khoảng cách giữa các mục trong danh sách */
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+header {
+    background-color: #cb0f0f;
+    padding: 20px 0;
+    border-radius: 10px 10px 0 0;
+}
+
+.banner img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+}
+
+.separator {
+    height: 2px;
+    background-color: #e0e0e0;
+    margin: 40px 0;
+}
+
+.video-section, .info-section {
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #cb0f0f;
+}
+
+.video-section iframe{
+    width: 100%;
+    height: 500px;
+    border: none;
+}
+
+.image-section {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.image-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #cb0f0f;
+    border-bottom: 2px solid #cb0f0f;
+    padding-bottom: 10px;
+}
+
+.image-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.image-container, .info-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.image-section, .timeline-section, .document-section {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-section h2,
+.document-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #cb0f0f;
+    border-bottom: 2px solid #cb0f0f;
+    padding-bottom: 10px;
+}
+
+.document-item {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 20px;
+}
+
+/* Gộp span */
+.timeline-item span,
+.document-item span {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-left: 10px; /* Chỉ thêm vào document-item nếu cần */
+}
+
+/* Gộp a */
+.timeline-item a,
+.document-item a {
+    text-decoration: none;
+    color: #e74c3c; /* Nếu muốn màu của document khác thì có thể không gộp dòng này */
+}
+
+.timeline-item a:hover,
+.document-item a:hover {
+    text-decoration: underline;
+}
+
+/* Gộp section */
+.document-section, 
+.timeline-section {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+footer {
+    background-color: #cb0f0f;
+    color: white;
+    padding: 10px 0;
+    border-radius: 0 0 10px 10px;
+    margin-top: 20px;
+}
+
+footer .contact-info, footer .logo {
+    margin: 5px 0;
+}
+
+footer .contact-info a {
+    color: #ffeb3b;
+    text-decoration: none;
+}
+
+footer .contact-info a:hover {
+    text-decoration: underline;
+}
