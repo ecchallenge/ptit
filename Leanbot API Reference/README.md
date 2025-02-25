@@ -6,7 +6,7 @@ Các hàm điều khiển Leanbot
 [Leanbot](#Leanbot)
 - [Leanbot.begin](#Leanbotbegin)
 - [LbDelay](#LbDelay)
-- [LbMission.begin (blocking)](#LbMissionbegin)
+- [LbMission.begin](#LbMissionbegin)
 
 
 
@@ -1311,3 +1311,6 @@ Lưu ý: không được thay đổi cấu hình trên.
 ### Ví dụ
 
 - [Shoot().ino](examples/Laze/Shoot().ino)
+
+[🔼 Trở về đầu trang](#Các-hàm-điều-khiển-Leanbot)
+
