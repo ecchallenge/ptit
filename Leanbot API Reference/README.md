@@ -1290,11 +1290,11 @@ Không có
 Không có
 
 ### Cấu hình ban đầu
-Trước khi sử dụng hàm `LbLaze.Shoot()`, hãy khai báo:
+Trước khi sử dụng hàm `LbLazeShoot()`, hãy khai báo:
 ```
 #define LAZE 13
 
-void LbLaze.Shoot(){
+void LbLazeShoot(){
   Serial.println("shoot");
   digitalWrite(LAZE, HIGH);
   delay(2000);
