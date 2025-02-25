@@ -7,11 +7,11 @@ class cLbLaze {
     void shoot();
 };
 
-void LbLaze::begin() {
+void cLbLaze::begin() {
   pinMode(13, OUTPUT);
 }
 
-void LbLaze::shoot() {
+void cLbLaze::shoot() {
   Serial.println("shoot");
   digitalWrite(13, HIGH);
   delay(2000);
