@@ -1468,7 +1468,7 @@ RGB: 120 85 60
 
 ### Xem thêm
 
-- [ColorDetector.ino](examples/Laze/ColorDetector.ino)
+- [ColorDetector.ino](examples/APDS/ColorDetector.ino)
 
 [🔼 Trở về đầu trang](#Các-hàm-điều-khiển-Leanbot)
 
