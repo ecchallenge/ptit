@@ -1425,6 +1425,8 @@ Hàm `LbColorDetector.detect()` phát hiện màu của vật thể bằng cách
 Hàm này thay đổi màu đèn LED để xác định giá trị RGB của vật thể và lưu trữ vào biến nội bộ.  
 
 **Lưu ý:** Cảm biến APDS-9960 cần được khởi tạo trước khi gọi hàm này.  
+ 
+Khoảng cách để xác định đúng là < 5 cm.
 
 ### Cú pháp 
  
