@@ -1276,7 +1276,7 @@ Serial.println(value);               // transfer the results to the computer
 ### Mô tả
 Hàm `LbLaze.Shoot()` kích hoạt các cảm biến laze của Leanbot, bật tia laze trong 2 giây rồi tắt.
 
-**Lưu ý:** Trước khi gọi hàm `LbLaze.Shoot()`, người dùng cần khai báo chân laze và cấu hình trong `setup()`.
+**Lưu ý:** Trước khi gọi hàm `LbLaze.Shoot()`, người dùng cần khai báo chân laze, hàm và cấu hình trong `setup()`.
 
 ### Cú pháp
 ```
@@ -1310,7 +1310,7 @@ Lưu ý: không được thay đổi cấu hình trên.
 
 ### Ví dụ
 
-- [Shoot().ino](examples/Laze/Shoot().ino)
+- [Shoot.ino](examples/Laze/Shoot.ino)
 
 [🔼 Trở về đầu trang](#Các-hàm-điều-khiển-Leanbot)
 
