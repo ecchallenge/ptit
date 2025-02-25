@@ -9,7 +9,6 @@ Các hàm điều khiển Leanbot
 - [LbMission.begin](#LbMissionbegin)
 
 
-
 [Motion ](#Motion)
 - [LbMotion.runLR](#LbMotionrunLR)
 - [LbMotion.stopAndWait ](#LbMotionstopAndWait)
@@ -1311,6 +1310,94 @@ Lưu ý: không được thay đổi cấu hình trên.
 ### Ví dụ
 
 - [Shoot.ino](examples/Laze/Shoot.ino)
+
+[🔼 Trở về đầu trang](#Các-hàm-điều-khiển-Leanbot)
+
+# Color Detector 
+
+## LbColorDetector.detect()  
+
+### Mô tả  
+Hàm `LbColorDetector.detect()` phát hiện màu của vật thể bằng cách sử dụng cảm biến APDS-9960.  
+Hàm này thay đổi màu đèn LED để xác định giá trị RGB của vật thể và lưu trữ vào biến nội bộ.  
+
+**Lưu ý:** Cảm biến APDS-9960 cần được khởi tạo trước khi gọi hàm này.  
+
+### Cú pháp 
+ 
+```cpp
+LbColorDetector.detect();
+```
+
+### Tham số
+- Không có
+
+### Giá trị trả về
+- Không có
+
+### Cấu hình ban đầu
+- Trước khi sử dụng hàm LbColorDetector.detect(), cần khai báo:
+
+```
+#include <Leanbot.h>
+#include <Arduino_APDS9960.h>
+
+class cLbColorDetector {
+  public:
+    void detect();
+    void printRGB();
+    
+  private:
+    int objRed, objGreen, objBlue;
+};
+```
+
+- Và trong setup(), hãy gọi để kiểm tra cảm biến:
+
+```
+if (APDS.begin()) {
+  Serial.println("Init APDS-9960 ok.");
+} else {
+  Serial.println("Init APDS-9960 error.");
+  while (1);
+}
+```
+
+## LbColorDetector.printRGB()
+
+### Mô tả
+
+Hàm LbColorDetector.printRGB() in ra giá trị RGB của vật thể được phát hiện bởi cảm biến màu.
+Các giá trị này đã được tính toán trong hàm LbColorDetector.detect().
+
+### Cú pháp
+
+```
+LbColorDetector.printRGB();
+```
+
+### Tham số
+- Không có
+
+### Giá trị trả về
+- Không có
+
+### Ví dụ
+
+```
+LbColorDetector.detect();
+LbColorDetector.printRGB();
+```
+
+Kết quả mong đợi trên Serial Monitor
+
+```
+RGB: 120 85 60
+```
+
+### Xem thêm
+
+- [ColorDetector.ino](examples/Laze/ColorDetector.ino)
 
 [🔼 Trở về đầu trang](#Các-hàm-điều-khiển-Leanbot)
 
