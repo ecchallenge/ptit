@@ -1269,7 +1269,7 @@ Serial.println(value);               // transfer the results to the computer
 
 [🔼 Trở về đầu trang](#Các-hàm-điều-khiển-Leanbot)
 
-#Laze Sensors
+# Laze Sensors
 
 ## LbLaze.Shoot()
 
@@ -1306,29 +1306,8 @@ Và trong `setup()`, hãy gọi:
 pinMode(LAZE, OUTPUT);
 ```
 
+Lưu ý: không được thay đổi cấu hình trên.
+
 ### Ví dụ
-Leanbot bắn tia laze khi nhấn nút `TB1A`.
 
-```
-#include <Leanbot.h>
-
-#define LAZE 13
-
-void LbLaze.Shoot(){
-  Serial.println("shoot");
-  digitalWrite(LAZE, HIGH);
-  delay(2000);
-  digitalWrite(LAZE, LOW);
-}
-
-void setup() {
-    Leanbot.begin();
-    pinMode(LAZE, OUTPUT);
-}
-
-void loop() {
-    if (LbTouch.read(TB1A)) {
-        LbLaze.Shoot();
-    }
-}
-```
+- [LbLaze.Shoot().ino](examples/Laze/LbLaze.Shoot().ino)
