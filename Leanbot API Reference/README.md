@@ -1402,45 +1402,6 @@ void cLbColorDetector::printRGB() {
 cLbColorDetector LbColorDetector;
 ```
 
-## LbColorDetector.detect()  
-
-### Mô tả  
-Hàm `LbColorDetector.detect()` phát hiện màu của vật thể bằng cách sử dụng cảm biến APDS-9960.  
-Hàm này thay đổi màu đèn LED để xác định giá trị RGB của vật thể và lưu trữ vào biến nội bộ.  
-
-**Lưu ý:** Cảm biến APDS-9960 cần được khởi tạo trước khi gọi hàm này.  
-
-### Cú pháp 
- 
-```cpp
-LbColorDetector.detect();
-```
-
-### Tham số
-- Không có
-
-### Giá trị trả về
-- Không có
-
-### Cấu hình ban đầu
-- Trước khi sử dụng hàm `LbColorDetector.detect()`, cần khai báo:
-
-```
-#include <Leanbot.h>
-#include <Arduino_APDS9960.h>
-
-class cLbColorDetector {
-  public:
-    void detect();
-    void printRGB();
-    
-  private:
-    int objRed, objGreen, objBlue;
-};
-
-cLbColorDetector LbColorDetector;
-```
-
 - Và trong `setup()`, hãy gọi để kiểm tra cảm biến:
 
 ```
@@ -1451,6 +1412,27 @@ if (APDS.begin()) {
   while (1);
 }
 ```
+
+## LbColorDetector.detect()  
+
+### Mô tả  
+Hàm `LbColorDetector.detect()` phát hiện màu của vật thể bằng cách sử dụng cảm biến APDS-9960.  
+Hàm này thay đổi màu đèn LED để xác định giá trị RGB của vật thể và lưu trữ vào biến nội bộ.  
+
+**Lưu ý:** Cảm biến APDS-9960 cần được khởi tạo trước khi gọi hàm này.  
+
+### Cú pháp 
+ 
+```
+LbColorDetector.detect();
+```
+
+### Tham số
+- Không có
+
+### Giá trị trả về
+- Không có
+
 
 ## LbColorDetector.printRGB()
 
