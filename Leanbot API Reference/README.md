@@ -6,6 +6,8 @@ Các hàm điều khiển Leanbot
 [Leanbot](#Leanbot)
 - [Leanbot.begin](#Leanbotbegin)
 - [LbDelay](#LbDelay)
+- [LbMission.begin (blocking)](#LbMissionbegin)
+
 
 
 [Motion ](#Motion)
@@ -62,9 +64,8 @@ Các hàm điều khiển Leanbot
 - [LbIRLine.doManualCalibration ](#LbIRLinedoManualCalibration)
 - [LbIRArray.read](#LbIRArrayread)
 
-<!-- 
-[DC Motor ](#DC-Motor)
-- [Leanbot.DCMotor.setPower](#LeanbotDCMotorsetPower) -->
+
+[Laze Sensors](#Laze-Sensors)
 
 
 
@@ -129,6 +130,31 @@ LbMotion.runLR(0, 0);        // stop Leanbot
 
 ### Chú ý
 Thời gian trễ cao nhất là `65,535` mili giây (≈ 65.5 giây)
+
+## LbMission.begin (blocking)
+
+### Cú pháp
+```
+LbMission.begin()
+```
+
+### Tham số
+Không có
+
+### Giá trị trả về
+Không có
+
+### Mô tả
+Leanbot sẽ chờ tín hiệu bắt đầu nhiệm vụ bằng cách yêu cầu người dùng chạm đồng thời vào hai nút `TB1A` và `TB1B` ở phía trước Leanbot. Trong thời gian này, chương trình sẽ bị chặn và không thực thi các lệnh khác.
+
+Khi nhận được tín hiệu bắt đầu:
+- Leanbot sẽ phát âm thanh đếm ngược `3` – `2` – `1`
+- Sau đó bắt đầu nhiệm vụ và thực hiện các tác vụ đã được lập trình.
+
+### Ví dụ
+```
+LbMission.begin();
+```
 
 [🔼 Trở về đầu trang](#Các-hàm-điều-khiển-Leanbot)
 
@@ -1242,3 +1268,67 @@ Serial.println(value);               // transfer the results to the computer
 ```
 
 [🔼 Trở về đầu trang](#Các-hàm-điều-khiển-Leanbot)
+
+#Laze Sensors
+
+## LbLaze.Shoot()
+
+### Mô tả
+Hàm `LbLaze.Shoot()` kích hoạt các cảm biến laze của Leanbot, bật tia laze trong 2 giây rồi tắt.
+
+**Lưu ý:** Trước khi gọi hàm `LbLaze.Shoot()`, người dùng cần khai báo chân laze và cấu hình trong `setup()`.
+
+### Cú pháp
+```
+LbLaze.Shoot()
+```
+
+### Tham số
+Không có
+
+### Giá trị trả về
+Không có
+
+### Cấu hình ban đầu
+Trước khi sử dụng hàm `LbLaze.Shoot()`, hãy khai báo:
+```
+#define LAZE 13
+
+void LbLaze.Shoot(){
+  Serial.println("shoot");
+  digitalWrite(LAZE, HIGH);
+  delay(2000);
+  digitalWrite(LAZE, LOW);
+}
+```
+Và trong `setup()`, hãy gọi:
+```
+pinMode(LAZE, OUTPUT);
+```
+
+### Ví dụ
+Leanbot bắn tia laze khi nhấn nút `TB1A`.
+
+```
+#include <Leanbot.h>
+
+#define LAZE 13
+
+void LbLaze.Shoot(){
+  Serial.println("shoot");
+  digitalWrite(LAZE, HIGH);
+  delay(2000);
+  digitalWrite(LAZE, LOW);
+}
+
+void setup() {
+    Leanbot.begin();
+    pinMode(LAZE, OUTPUT);
+}
+
+void loop() {
+    if (LbTouch.read(TB1A)) {
+        LbLaze.Shoot();
+    }
+}
+```
