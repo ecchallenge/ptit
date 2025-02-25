@@ -65,7 +65,8 @@ Các hàm điều khiển Leanbot
 
 
 [Laze Sensors](#Laze-Sensors)
-- [LbLazeShoot](#LbLazeShoot)
+- [LbLaze.begin](#LbLazebegin)
+- [LbLaze.shoot](#LbLazeshoot)
 
 [Color Detector](#Color-Detector)
 - [LbColorDetector.detect](LbColorDetectordetect)
@@ -1297,6 +1298,24 @@ void LbLaze::shoot() {
 cLbLaze LbLaze;
 ```
 
+## LbLaze.begin()
+
+### Mô tả
+
+Hàm `LbLaze.begin()` khởi tạo cảm biến laze của Leanbot, thiết lập chân điều khiển laze làm đầu ra (`OUTPUT`).  
+Hàm này cần được gọi trong `setup()` trước khi sử dụng `LbLaze.shoot()`.
+
+### Cú pháp
+```
+LbLaze.begin();
+```
+
+### Tham số  
+Không có  
+
+### Giá trị trả về  
+Không có  
+
 ## LbLaze.shoot()
 
 ### Mô tả
@@ -1313,27 +1332,6 @@ Không có
 
 ### Giá trị trả về
 Không có
-
-### Cấu hình ban đầu
-
-Trước khi sử dụng hàm `LbLazeShoot()`, hãy khai báo:
-
-```
-#define LAZE 13
-
-void LbLazeShoot(){
-  Serial.println("shoot");
-  digitalWrite(LAZE, HIGH);
-  delay(2000);
-  digitalWrite(LAZE, LOW);
-}
-```
-Và trong `setup()`, hãy gọi:
-```
-pinMode(LAZE, OUTPUT);
-```
-
-Lưu ý: không được thay đổi cấu hình trên.
 
 ### Ví dụ
 
