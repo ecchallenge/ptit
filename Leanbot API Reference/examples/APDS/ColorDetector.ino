@@ -72,7 +72,6 @@ void loop() {
 
     LbColorDetector.detect();
     LbColorDetector.printRGB();
-    Serial.println();
 
     LbDelay(2000);
   }
