@@ -3,7 +3,7 @@
 
 #define LAZE 13
 
-void LbLaze.Shoot(){
+void LbLazeShoot(){
   Serial.println("shoot");
   digitalWrite(LAZE, HIGH);
   delay(2000);
@@ -17,6 +17,6 @@ void setup() {
 
 void loop() {
     if (LbTouch.read(TB1A)) {
-        LbLaze.Shoot();
+        LbLazeShoot();
     }
 }
