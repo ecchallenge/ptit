@@ -1274,16 +1274,38 @@ Serial.println(value);               // transfer the results to the computer
 
 # Laze Sensors
 
-## LbLaze.Shoot()
+Trước khi sử dụng `Laze Sensors` hãy khai báo:
+
+```
+class cLbLaze {
+  public:
+    void begin();
+    void shoot();
+};
+
+void LbLaze::begin() {
+  pinMode(13, OUTPUT);
+}
+
+void LbLaze::shoot() {
+  Serial.println("shoot");
+  digitalWrite(13, HIGH);
+  delay(2000);
+  digitalWrite(13, LOW);
+}
+
+cLbLaze LbLaze;
+```
+
+## LbLaze.shoot()
 
 ### Mô tả
-Hàm `LbLaze.Shoot()` kích hoạt các cảm biến laze của Leanbot, bật tia laze trong 2 giây rồi tắt.
 
-**Lưu ý:** Trước khi gọi hàm `LbLaze.Shoot()`, người dùng cần khai báo chân laze, hàm và cấu hình trong `setup()`.
+Hàm `LbLaze.shoot()` kích hoạt các cảm biến laze của Leanbot, bật tia laze trong 2 giây rồi tắt.
 
 ### Cú pháp
 ```
-LbLaze.Shoot()
+LbLaze.shoot()
 ```
 
 ### Tham số
@@ -1293,7 +1315,9 @@ Không có
 Không có
 
 ### Cấu hình ban đầu
+
 Trước khi sử dụng hàm `LbLazeShoot()`, hãy khai báo:
+
 ```
 #define LAZE 13
 
@@ -1340,7 +1364,7 @@ LbColorDetector.detect();
 - Không có
 
 ### Cấu hình ban đầu
-- Trước khi sử dụng hàm LbColorDetector.detect(), cần khai báo:
+- Trước khi sử dụng hàm `LbColorDetector.detect()`, cần khai báo:
 
 ```
 #include <Leanbot.h>
@@ -1354,9 +1378,11 @@ class cLbColorDetector {
   private:
     int objRed, objGreen, objBlue;
 };
+
+cLbColorDetector LbColorDetector;
 ```
 
-- Và trong setup(), hãy gọi để kiểm tra cảm biến:
+- Và trong `setup()`, hãy gọi để kiểm tra cảm biến:
 
 ```
 if (APDS.begin()) {
@@ -1371,8 +1397,8 @@ if (APDS.begin()) {
 
 ### Mô tả
 
-Hàm LbColorDetector.printRGB() in ra giá trị RGB của vật thể được phát hiện bởi cảm biến màu.
-Các giá trị này đã được tính toán trong hàm LbColorDetector.detect().
+Hàm `LbColorDetector.printRGB()` in ra giá trị RGB của vật thể được phát hiện bởi cảm biến màu.
+Các giá trị này đã được tính toán trong hàm `LbColorDetector.detect()`.
 
 ### Cú pháp
 
