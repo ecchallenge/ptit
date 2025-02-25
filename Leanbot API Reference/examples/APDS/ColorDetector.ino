@@ -10,31 +10,6 @@ class cLbColorDetector {
     int objRed, objGreen, objBlue;
 };
 
-cLbColorDetector LbColorDetector;
-
-void setup() {
-  Leanbot.begin();  // Khởi tạo Leanbot
-  if (APDS.begin()) {
-    Serial.println("Init APDS-9960 ok.");
-  } else {
-    Serial.println("Init APDS-9960 error.");
-    while (1);  // Dừng chương trình nếu lỗi
-  }
-}
-
-void loop() {
-  int distanceMm = Leanbot.pingMm();  // Đọc khoảng cách từ cảm biến HC-04
-  if (distanceMm <= 50) {  // Nếu có vật thể trong phạm vi
-
-    LbColorDetector.detect();
-    LbColorDetector.printRGB();
-    Serial.println();
-
-    LbDelay(2000);
-  }
-  LbDelay(200);
-}
-
 void cLbColorDetector::detect() {
   int originalBrightness = LbRGB.getBrightness();
   LbRGB.setBrightness(255);
@@ -77,4 +52,28 @@ void cLbColorDetector::printRGB() {
   Serial.print(" ");
   Serial.print(objBlue);
   Serial.println();
+}
+
+cLbColorDetector LbColorDetector;
+
+void setup() {
+  Leanbot.begin();  // Khởi tạo Leanbot
+  if (APDS.begin()) {
+    Serial.println("Init APDS-9960 ok.");
+  } else {
+    Serial.println("Init APDS-9960 error.");
+    while (1);  // Dừng chương trình nếu lỗi
+  }
+}
+
+void loop() {
+  int distanceMm = Leanbot.pingMm();  // Đọc khoảng cách từ cảm biến HC-04
+  if (distanceMm <= 50) {  // Nếu có vật thể trong phạm vi
+
+    LbColorDetector.detect();
+    LbColorDetector.printRGB();
+
+    LbDelay(2000);
+  }
+  LbDelay(200);
 }
