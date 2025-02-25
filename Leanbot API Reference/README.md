@@ -69,8 +69,8 @@ Các hàm điều khiển Leanbot
 - [LbLaze.shoot](#LbLazeshoot)
 
 [Color Detector](#Color-Detector)
-- [LbColorDetector.detect](LbColorDetectordetect)
-- [LbColorDetector.printRGB](LbColorDetectorprintRGB)
+- [LbColorDetector.detect](#LbColorDetectordetect)
+- [LbColorDetector.printRGB](#LbColorDetectorprintRGB)
 
 
 # Leanbot
