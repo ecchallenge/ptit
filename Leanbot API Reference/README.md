@@ -131,7 +131,7 @@ LbMotion.runLR(0, 0);        // stop Leanbot
 ### Chú ý
 Thời gian trễ cao nhất là `65,535` mili giây (≈ 65.5 giây)
 
-## LbMission.begin (blocking)
+## LbMission.begin()
 
 ### Cú pháp
 ```
