@@ -142,18 +142,18 @@ Thời gian trễ cao nhất là `65,535` mili giây (≈ 65.5 giây)
 LbMission.begin()
 ```
 
-### Tham số
-Không có
-
-### Giá trị trả về
-Không có
-
 ### Mô tả
 Leanbot sẽ chờ tín hiệu bắt đầu nhiệm vụ bằng cách yêu cầu người dùng chạm đồng thời vào hai nút `TB1A` và `TB1B` ở phía trước Leanbot. Trong thời gian này, chương trình sẽ bị chặn và không thực thi các lệnh khác.
 
 Khi nhận được tín hiệu bắt đầu:
 - Leanbot sẽ phát âm thanh đếm ngược `3` – `2` – `1`
 - Sau đó bắt đầu nhiệm vụ và thực hiện các tác vụ đã được lập trình.
+
+### Tham số
+Không có
+
+### Giá trị trả về
+Không có
 
 ### Ví dụ
 ```
@@ -1310,10 +1310,12 @@ Hàm này cần được gọi trong `setup()` trước khi sử dụng `LbLaze.
 LbLaze.begin();
 ```
 
-### Tham số  
+### Tham số 
+ 
 Không có  
 
 ### Giá trị trả về  
+
 Không có  
 
 ## LbLaze.shoot()
@@ -1328,9 +1330,11 @@ LbLaze.shoot()
 ```
 
 ### Tham số
+
 Không có
 
 ### Giá trị trả về
+
 Không có
 
 ### Ví dụ
@@ -1415,7 +1419,8 @@ if (APDS.begin()) {
 
 ## LbColorDetector.detect()  
 
-### Mô tả  
+### Mô tả
+  
 Hàm `LbColorDetector.detect()` phát hiện màu của vật thể bằng cách sử dụng cảm biến APDS-9960.  
 Hàm này thay đổi màu đèn LED để xác định giá trị RGB của vật thể và lưu trữ vào biến nội bộ.  
 
@@ -1428,10 +1433,12 @@ LbColorDetector.detect();
 ```
 
 ### Tham số
-- Không có
+
+Không có
 
 ### Giá trị trả về
-- Không có
+
+Không có
 
 
 ## LbColorDetector.printRGB()
@@ -1448,10 +1455,12 @@ LbColorDetector.printRGB();
 ```
 
 ### Tham số
-- Không có
+
+Không có
 
 ### Giá trị trả về
-- Không có
+
+Không có
 
 ### Ví dụ
 
