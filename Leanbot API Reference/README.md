@@ -1310,4 +1310,4 @@ Lưu ý: không được thay đổi cấu hình trên.
 
 ### Ví dụ
 
-- [LbLaze.Shoot().ino](examples/Laze/LbLaze.Shoot().ino)
+- [Shoot().ino](examples/Laze/Shoot().ino)
