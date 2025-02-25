@@ -1335,7 +1335,7 @@ Không có
 
 ### Ví dụ
 
-- [Shoot.ino](examples/Laze/Shoot.ino)
+- [Laze.ino](examples/Laze/Laze.ino)
 
 [🔼 Trở về đầu trang](#Các-hàm-điều-khiển-Leanbot)
 
