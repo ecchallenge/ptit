@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nhập môn Điện tử – Mini Game (Web)</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #111827;
+      --primary-50: #eef2ff;
+      --primary-200: #c7d2fe;
+      --green-50: #ecfdf5;
+      --green-200: #a7f3d0;
+      --red-50: #fef2f2;
+      --red-200: #fecaca;
+      --border: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; background: var(--bg); color: var(--text); }
+    a { color: inherit; }
+
+    /* Layout */
+    .container { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+    header.sticky { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+    header .row { display: flex; align-items: center; gap: 12px; padding: 12px 0; }
+    header img.logo { height: 36px; width: auto; border-radius: 6px; }
+    header h1 { font-size: 18px; margin: 0; font-weight: 700; }
+    .spacer { flex: 1; }
+    .chip { font-size: 12px; border: 1px solid #e0e7ff; background: var(--primary-50); padding: 4px 8px; border-radius: 999px; }
+
+    nav.tabbar { display: none; gap: 6px; }
+    @media (min-width: 640px) { nav.tabbar { display: flex; } }
+
+    .tabbtn { padding: 8px 12px; border-radius: 12px; border: 1px solid var(--border); background: #fff; cursor: pointer; font-size: 14px; }
+    .tabbtn.active { background: var(--primary); color:#fff; border-color: var(--primary); }
+    .tabbtn:hover { background: #f8fafc; }
+
+    main { padding: 24px 0; }
+
+    /* Cards & grids */
+    .grid { display: grid; gap: 16px; }
+    @media (min-width: 640px) { .grid.sm-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (min-width: 1024px) { .grid.lg-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; box-shadow: 0 4px 10px rgba(15,23,42,0.04); }
+    .card h2 { margin: 0 0 8px; font-size: 18px; }
+    .muted { color: var(--muted); font-size: 14px; }
+
+    .btn { padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); background: #fff; cursor: pointer; font-size: 14px; }
+    .btn:hover { background: #f8fafc; }
+    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
+
+    .list { padding-left: 18px; }
+    .list li { margin: 6px 0; }
+
+    .pill { display:inline-block; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); font-size: 12px; }
+
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid var(--border); padding: 8px; text-align: center; font-size: 14px; }
+    thead { background: #f8fafc; }
+
+    .toggle { width: 96px; height: 96px; border-radius: 18px; border: 1px solid var(--border); background: #fff; display:flex; flex-direction: column; align-items:center; justify-content:center; gap:6px; font-size: 20px; }
+    .toggle.on { background: #eef2ff; border-color: var(--primary-200); }
+    .toggle small { color: var(--muted); font-size: 12px; }
+
+    .lamp { width: 72px; height: 72px; border-radius: 16px; border: 1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size: 24px; }
+    .lamp.on { background: var(--green-50); border-color: var(--green-200); }
+    .lamp.off { background: #f1f5f9; }
+
+    footer { color: var(--muted); text-align:center; padding: 32px 0; font-size: 14px; }
+
+    /* Helper */
+    .row { display:flex; align-items:center; gap:12px; }
+    .grow { flex:1; }
+    .mb8 { margin-bottom: 8px; }
+    .mb12 { margin-bottom: 12px; }
+    .mb16 { margin-bottom: 16px; }
+    .mt8 { margin-top: 8px; }
+    .mt12 { margin-top: 12px; }
+    .mt16 { margin-top: 16px; }
+    .center { text-align: center; }
+  </style>
+</head>
+<body>
+  <header class="sticky">
+    <div class="container">
+      <div class="row">
+        <img src="logo.png" alt="Logo Khoa" class="logo" onerror="this.style.display='none'" />
+        <h1>Nhập môn Điện tử – Mini Game</h1>
+        <div class="spacer"></div>
+        <div id="xpChip" class="chip">XP: <b>0</b></div>
+        <nav class="tabbar">
+          <button class="tabbtn active" data-tab="home">Trang chủ</button>
+          <button class="tabbtn" data-tab="learn">Khám phá linh kiện</button>
+          <button class="tabbtn" data-tab="quiz">Quiz nhanh</button>
+          <button class="tabbtn" data-tab="gates">Cổng logic</button>
+          <button class="tabbtn" data-tab="resistor">Mã màu điện trở</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HOME -->
+    <section id="tab-home">
+      <div class="grid sm-2 lg-3">
+        <button class="card" onclick="switchTab('learn')">
+          <h2>Khám phá linh kiện</h2>
+          <div class="muted">Mô tả nhanh các linh kiện cơ bản</div>
+          <div class="mt8 muted">Bấm để bắt đầu →</div>
+        </button>
+        <button class="card" onclick="switchTab('quiz')">
+          <h2>Quiz nhanh</h2>
+          <div class="muted">Câu hỏi trắc nghiệm siêu tốc</div>
+          <div class="mt8 muted">Bấm để bắt đầu →</div>
+        </button>
+        <button class="card" onclick="switchTab('gates')">
+          <h2>Cổng logic</h2>
+          <div class="muted">Bật tắt, xem đầu ra & bảng chân lý</div>
+          <div class="mt8 muted">Bấm để bắt đầu →</div>
+        </button>
+        <button class="card" onclick="switchTab('resistor')">
+          <h2>Mã màu điện trở</h2>
+          <div class="muted">Chọn màu đúng theo giá trị mục tiêu</div>
+          <div class="mt8 muted">Bấm để bắt đầu →</div>
+        </button>
+        <div class="card" style="grid-column: 1/-1">
+          <h2>Mục tiêu học phần</h2>
+          <ul class="list muted">
+            <li>Nhận diện linh kiện cơ bản và công dụng.</li>
+            <li>Làm quen khái niệm logic số (AND/OR/XOR...).</li>
+            <li>Đọc mã màu điện trở để xác định giá trị.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEARN COMPONENTS -->
+    <section id="tab-learn" hidden>
+      <div class="grid sm-2 lg-3" id="learnGrid"></div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="tab-quiz" hidden>
+      <div class="card" style="max-width:720px;margin:auto">
+        <div id="quizHeader" class="muted mb8"></div>
+        <div id="quizQuestion" class="mb12" style="font-weight:600;font-size:18px"></div>
+        <div id="quizChoices" class="grid"></div>
+        <div id="quizExplain" class="mt12 muted"></div>
+        <div class="mt16 row">
+          <button class="btn" id="quizNext">Câu tiếp</button>
+          <div class="grow"></div>
+          <button class="btn" id="quizReset" hidden>Làm lại</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOGIC GATES -->
+    <section id="tab-gates" hidden>
+      <div class="grid sm-2">
+        <div class="card">
+          <div style="font-weight:600" class="mb12">Sandbox cổng logic</div>
+          <div class="row mb12">
+            <label class="muted">Chọn cổng:</label>
+            <select id="gateSelect" class="btn"></select>
+          </div>
+          <div class="row">
+            <button id="toggleA" class="toggle"><small>A</small><b>0</b></button>
+            <button id="toggleB" class="toggle"><small>B</small><b>0</b></button>
+            <div class="grow"></div>
+            <div class="center">
+              <div class="muted" style="font-size:12px">Đầu ra Y</div>
+              <div id="lamp" class="lamp off">0</div>
+            </div>
+          </div>
+          <div class="muted mt12">Bật/tắt A, B để quan sát đầu ra. Hoàn thành thử thách để nhận XP.</div>
+          <div class="row mt12">
+            <button id="gateChallenge" class="btn">Nhận thử thách</button>
+            <div id="gateMsg" class="muted"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-weight:600" class="mb12">Bảng chân lý</div>
+          <div id="truthTableWrap"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESISTOR COLOR -->
+    <section id="tab-resistor" hidden>
+      <div class="grid sm-2">
+        <div class="card">
+          <div style="font-weight:600" class="mb8">Chọn mã màu (4 băng: 2 số – nhân)</div>
+          <div class="mb12">Giá trị mục tiêu: <b id="targetOhm"></b></div>
+          <div class="row mb12">
+            <div>
+              <div class="muted" style="font-size:12px">Băng 1 (chục)</div>
+              <select id="band1" class="btn"></select>
+            </div>
+            <div>
+              <div class="muted" style="font-size:12px">Băng 2 (đơn vị)</div>
+              <select id="band2" class="btn"></select>
+            </div>
+            <div>
+              <div class="muted" style="font-size:12px">Băng 3 (nhân)</div>
+              <select id="band3" class="btn"></select>
+            </div>
+          </div>
+          <div class="mb8">Giá trị của bạn: <b id="yourOhm">–</b></div>
+          <div class="row">
+            <span id="resStatus" class="pill">Chưa đúng</span>
+            <button id="resClaim" class="btn">Nhận XP</button>
+            <button id="resNew" class="btn">Mục tiêu khác</button>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-weight:600" class="mb8">Gợi ý đọc mã màu</div>
+          <ul class="list muted">
+            <li>Hai băng đầu là 2 chữ số đầu: Nâu=1, Đỏ=2, Cam=3, Vàng=4, Lục=5, Lam=6, Tím=7, Xám=8, Trắng=9, Đen=0.</li>
+            <li>Băng thứ ba là hệ số nhân: Cam=×1000, Vàng=×10000, Vàng kim=×0.1, Bạc=×0.01…</li>
+            <li>Ví dụ 1–0–Cam = 10 × 1000 = 10 kΩ.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> – Khoa Kỹ thuật Điện tử 1. Dùng tự do cho lớp tân sinh viên.
+  </footer>
+
+  <script>
+    // ================== DATA ==================
+    const COMPONENTS = [
+      { key: 'resistor', name: 'Điện trở', emoji: '🟫', desc: 'Hạn dòng, phân áp. Đơn vị Ω. Thường thấy trong mạch LED, cầu phân áp, pull-up/pull-down.', facts: ['Ký hiệu R', 'Mã màu để đọc giá trị', 'Công suất: 1/8W, 1/4W, …'] },
+      { key: 'capacitor', name: 'Tụ điện', emoji: '🟨', desc: 'Tích trữ điện, lọc nhiễu, ghép tín hiệu. Đơn vị F (thường µF, nF, pF).', facts: ['Có phân cực (Electrolytic) và không phân cực', 'Dùng để lọc nguồn'] },
+      { key: 'diode', name: 'Diode', emoji: '⬛', desc: 'Cho dòng đi một chiều. Dùng chỉnh lưu, bảo vệ đảo cực.', facts: ['Có cực Anode/Cathode', 'LED là một loại diode phát quang'] },
+      { key: 'led', name: 'LED', emoji: '🔴', desc: 'Diode phát sáng. Cần điện trở hạn dòng để không cháy.', facts: ['Cực dài là Anode (+)', 'Sụt áp ~1.8–3.3V tùy màu'] },
+      { key: 'transistor', name: 'Transistor', emoji: '🔼', desc: 'Khuếch đại hoặc khóa điện tử. Loại BJT (NPN/PNP) và MOSFET.', facts: ['Chân B-C-E (BJT) / G-D-S (MOSFET)', 'Dùng để điều khiển tải'] },
+      { key: 'ic', name: 'IC (mạch tích hợp)', emoji: '🧠', desc: 'Tập hợp nhiều linh kiện trên một chip. Ví dụ: 555, op-amp, vi điều khiển.', facts: ['Có đánh dấu chân 1', 'Datasheet rất quan trọng'] },
+    ];
+
+    const QUIZ_QS = [
+      { q: 'Linh kiện nào dùng để hạn dòng cho LED?', choices: ['Tụ điện', 'Điện trở', 'Diode Zener'], answer: 1, explain: 'LED cần điện trở nối tiếp để hạn dòng và bảo vệ.' },
+      { q: 'Cổng logic nào chỉ sáng khi A=1 và B=1?', choices: ['OR', 'XOR', 'AND'], answer: 2, explain: 'AND trả về 1 khi tất cả đầu vào là 1.' },
+      { q: 'Đơn vị của tụ điện là gì?', choices: ['Ω', 'F', 'H'], answer: 1, explain: 'F (Farad); Ω là điện trở, H là độ tự cảm.' },
+      { q: 'Diode có bao nhiêu cực?', choices: ['2', '3', '4'], answer: 0, explain: 'Diode có 2 cực: Anode và Cathode.' },
+    ];
+
+    const GATES = ['AND','OR','XOR','NAND','NOR','XNOR','NOT'];
+
+    const COLOR_BANDS = [
+      { name: 'Đen', value: 0, multiplier: 1 },
+      { name: 'Nâu', value: 1, multiplier: 10 },
+      { name: 'Đỏ', value: 2, multiplier: 100 },
+      { name: 'Cam', value: 3, multiplier: 1000 },
+      { name: 'Vàng', value: 4, multiplier: 10000 },
+      { name: 'Lục', value: 5, multiplier: 100000 },
+      { name: 'Lam', value: 6, multiplier: 1000000 },
+      { name: 'Tím', value: 7, multiplier: 10000000 },
+      { name: 'Xám', value: 8, multiplier: 100000000 },
+      { name: 'Trắng', value: 9, multiplier: 1000000000 },
+      { name: 'Vàng kim', value: NaN, multiplier: 0.1 },
+      { name: 'Bạc', value: NaN, multiplier: 0.01 },
+    ];
+
+    // ================== STATE ==================
+    let XP = 0;
+    const state = {
+      tab: 'home',
+      learnUnlocked: new Set(),
+      quizIndex: 0,
+      quizPicked: null,
+      quizScore: 0,
+      gate: 'AND',
+      A: 0, B: 0,
+      resistorTarget: randomTarget(),
+      band1: 1, band2: 0, band3: 3,
+    };
+
+    // ================== UTIL ==================
+    function updateXp(n){ XP += n; document.querySelector('#xpChip b').textContent = XP; }
+    function switchTab(id){
+      state.tab = id;
+      document.querySelectorAll('nav.tabbar .tabbtn').forEach(btn=>{
+        btn.classList.toggle('active', btn.dataset.tab===id);
+      });
+      document.querySelectorAll('main section').forEach(sec=>{ sec.hidden = true; });
+      document.querySelector('#tab-'+id).hidden = false;
+      if(id==='learn') renderLearn();
+      if(id==='quiz') renderQuiz();
+      if(id==='gates') renderGates();
+      if(id==='resistor') renderResistor();
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+    function formatOhm(v){
+      if (v >= 1e6) return (v % 1e6 ? (v/1e6).toFixed(2):(v/1e6).toFixed(0)) + ' MΩ';
+      if (v >= 1e3) return (v % 1e3 ? (v/1e3).toFixed(2):(v/1e3).toFixed(0)) + ' kΩ';
+      return v + ' Ω';
+    }
+    function randomTarget(){ const pool=[220,330,470,680,820,1000,2200,3300,4700,6800,10000]; return pool[Math.floor(Math.random()*pool.length)]; }
+
+    // ================== LEARN ==================
+    function renderLearn(){
+      const wrap = document.getElementById('learnGrid');
+      wrap.innerHTML = '';
+      COMPONENTS.forEach(c=>{
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="row mb8">
+            <div style="font-size:24px">${c.emoji}</div>
+            <div>
+              <div style="font-weight:600">${c.name}</div>
+              <div class="muted" style="font-size:12px">${c.desc}</div>
+            </div>
+          </div>
+          <ul class="list muted">${c.facts.map(f=>`<li>${f}</li>`).join('')}</ul>
+          <button class="btn mt12">${state.learnUnlocked.has(c.key)?'Đã xem (+5 XP)':'Đánh dấu đã xem'}</button>
+        `;
+        const btn = card.querySelector('button');
+        btn.addEventListener('click',()=>{
+          if(!state.learnUnlocked.has(c.key)){
+            state.learnUnlocked.add(c.key);
+            updateXp(5);
+            btn.textContent = 'Đã xem (+5 XP)';
+          }
+        });
+        wrap.appendChild(card);
+      });
+    }
+
+    // ================== QUIZ ==================
+    function renderQuiz(){
+      const i = state.quizIndex;
+      const done = i >= QUIZ_QS.length;
+      const header = document.getElementById('quizHeader');
+      const qEl = document.getElementById('quizQuestion');
+      const chWrap = document.getElementById('quizChoices');
+      const exp = document.getElementById('quizExplain');
+      const nextBtn = document.getElementById('quizNext');
+      const resetBtn = document.getElementById('quizReset');
+
+      if(done){
+        header.textContent = `Kết thúc quiz – Điểm của bạn: ${state.quizScore}/${QUIZ_QS.length}`;
+        qEl.textContent = 'Mẹo: Ôn lại phần "Khám phá linh kiện" rồi thử lại để nâng điểm.';
+        chWrap.innerHTML=''; exp.textContent=''; nextBtn.hidden=true; resetBtn.hidden=false;
+        resetBtn.onclick = ()=>{ state.quizIndex=0; state.quizPicked=null; state.quizScore=0; renderQuiz(); };
+        return;
+      }
+
+      header.textContent = `Câu ${i+1} / ${QUIZ_QS.length}`;
+      const q = QUIZ_QS[i];
+      qEl.textContent = q.q;
+      chWrap.innerHTML = '';
+      exp.textContent = '';
+      nextBtn.hidden = false; resetBtn.hidden = true; nextBtn.disabled = true;
+
+      q.choices.forEach((c,idx)=>{
+        const btn = document.createElement('button');
+        btn.className = 'btn'; btn.style.textAlign='left'; btn.style.width='100%'; btn.style.marginBottom='8px';
+        btn.textContent = c;
+        btn.addEventListener('click',()=>{
+          if(state.quizPicked!==null) return;
+          state.quizPicked = idx;
+          const correct = idx===q.answer;
+          if(correct){ btn.style.background = 'var(--green-50)'; btn.style.borderColor = 'var(--green-200)'; updateXp(10); state.quizScore++; }
+          else { btn.style.background = 'var(--red-50)'; btn.style.borderColor = 'var(--red-200)'; }
+          exp.innerHTML = `<b>Giải thích:</b> ${q.explain}`;
+          nextBtn.disabled = false;
+          // mark other buttons
+          [...chWrap.children].forEach(child=>{
+            if(child!==btn){ child.style.opacity = .6; child.disabled = true; }
+          });
+        });
+        chWrap.appendChild(btn);
+      });
+
+      nextBtn.onclick = ()=>{ state.quizPicked=null; state.quizIndex++; renderQuiz(); };
+    }
+
+    // ================== GATES ==================
+    function evalGate(gate,a,b){
+      const A = !!a, B = !!b;
+      switch(gate){
+        case 'AND': return Number(A && B);
+        case 'OR': return Number(A || B);
+        case 'XOR': return Number((A?1:0) ^ (B?1:0));
+        case 'NAND': return Number(!(A && B));
+        case 'NOR': return Number(!(A || B));
+        case 'XNOR': return Number(!((A?1:0) ^ (B?1:0)));
+        case 'NOT': return Number(!A);
+      }
+    }
+
+    function renderGates(){
+      const select = document.getElementById('gateSelect');
+      if(!select.dataset.ready){
+        GATES.forEach(g=>{ const o=document.createElement('option'); o.value=g; o.textContent=g; select.appendChild(o); });
+        select.dataset.ready = '1';
+      }
+      select.value = state.gate;
+      select.onchange = ()=>{ state.gate = select.value; updateGateUI(); };
+
+      document.getElementById('toggleA').onclick = ()=>{ state.A = state.A?0:1; updateGateUI(); };
+      document.getElementById('toggleB').onclick = ()=>{ state.B = state.B?0:1; updateGateUI(); };
+      document.getElementById('gateChallenge').onclick = ()=>{
+        document.getElementById('gateChallenge').disabled = true;
+        document.getElementById('gateMsg').textContent = 'Hoàn thành thử thách! +10 XP';
+        updateXp(10);
+      };
+
+      updateGateUI();
+    }
+
+    function updateGateUI(){
+      const isNot = state.gate==='NOT';
+      const btnB = document.getElementById('toggleB');
+      btnB.style.display = isNot ? 'none' : 'flex';
+
+      // buttons
+      const aBtn = document.getElementById('toggleA');
+      aBtn.classList.toggle('on', !!state.A);
+      aBtn.querySelector('b').textContent = state.A;
+      const bBtn = document.getElementById('toggleB');
+      bBtn.classList.toggle('on', !!state.B);
+      bBtn.querySelector('b').textContent = state.B;
+
+      // lamp
+      const Y = evalGate(state.gate, state.A, state.B);
+      const lamp = document.getElementById('lamp');
+      lamp.textContent = Y;
+      lamp.classList.toggle('on', Y===1);
+      lamp.classList.toggle('off', Y!==1);
+
+      // truth table
+      const wrap = document.getElementById('truthTableWrap');
+      let html = '<table><thead><tr>';
+      if(isNot){ html += '<th>A</th><th>Y = NOT(A)</th>'; }
+      else { html += `<th>A</th><th>B</th><th>Y = ${state.gate}(A,B)</th>`; }
+      html += '</tr></thead><tbody>';
+      if(isNot){
+        [[0, evalGate('NOT',0,0)],[1, evalGate('NOT',1,0)]].forEach(r=>{ html += `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`; });
+      } else {
+        [[0,0],[0,1],[1,0],[1,1]].forEach(ab=>{ const y=evalGate(state.gate,ab[0],ab[1]); html += `<tr><td>${ab[0]}</td><td>${ab[1]}</td><td>${y}</td></tr>`; });
+      }
+      html += '</tbody></table>';
+      wrap.innerHTML = html;
+    }
+
+    // ================== RESISTOR ==================
+    function renderResistor(){
+      document.getElementById('targetOhm').textContent = formatOhm(state.resistorTarget);
+      const b1 = document.getElementById('band1');
+      const b2 = document.getElementById('band2');
+      const b3 = document.getElementById('band3');
+      if(!b1.dataset.ready){
+        // b1, b2: 0..9 (không vàng kim/bạc)
+        COLOR_BANDS.slice(0,10).forEach((c,idx)=>{
+          [b1,b2].forEach(sel=>{ const o=document.createElement('option'); o.value=idx; o.textContent=c.name; sel.appendChild(o.cloneNode(true)); });
+        });
+        // b3: multiplier (tất cả)
+        COLOR_BANDS.forEach((c,idx)=>{ const o=document.createElement('option'); o.value=idx; o.textContent=c.name; b3.appendChild(o); });
+        b1.dataset.ready = '1';
+      }
+      b1.value = state.band1; b2.value = state.band2; b3.value = state.band3;
+      [b1,b2,b3].forEach(sel=> sel.onchange = ()=>{ state[sel.id] = parseInt(sel.value,10); updateResistorUI(); });
+      document.getElementById('resClaim').onclick = ()=>{ if(checkResistorCorrect()){ updateXp(15); }
+      };
+      document.getElementById('resNew').onclick = ()=>{ state.resistorTarget = randomTarget(); document.getElementById('targetOhm').textContent = formatOhm(state.resistorTarget); updateResistorUI(); };
+      updateResistorUI();
+    }
+
+    function currentResistorValue(){
+      const d1 = COLOR_BANDS[state.band1].value;
+      const d2 = COLOR_BANDS[state.band2].value;
+      const mul = COLOR_BANDS[state.band3].multiplier;
+      if(d1==null || d2==null || mul==null) return NaN;
+      return (10*(d1||0)+(d2||0)) * (mul||1);
+    }
+
+    function checkResistorCorrect(){
+      const v = Math.round(currentResistorValue());
+      const t = Math.round(state.resistorTarget);
+      return v === t;
+    }
+
+    function updateResistorUI(){
+      const v = currentResistorValue();
+      document.getElementById('yourOhm').textContent = isNaN(v)? '–' : formatOhm(v);
+      const ok = checkResistorCorrect();
+      const badge = document.getElementById('resStatus');
+      badge.textContent = ok? 'Chính xác!' : 'Chưa đúng';
+      badge.style.background = ok? 'var(--green-50)' : '#f8fafc';
+      badge.style.borderColor = ok? 'var(--green-200)' : 'var(--border)';
+      badge.style.color = ok? '#065f46' : 'var(--muted)';
+    }
+
+    // ================== INIT ==================
+    function initNav(){
+      document.querySelectorAll('nav.tabbar .tabbtn').forEach(btn=>{
+        btn.addEventListener('click', ()=> switchTab(btn.dataset.tab));
+      });
+    }
+
+    function init(){
+      document.getElementById('year').textContent = new Date().getFullYear();
+      initNav();
+      switchTab('home');
+    }
+
+    init();
+  </script>
+</body>
+</html>
