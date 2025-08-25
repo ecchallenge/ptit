@@ -35,7 +35,11 @@
     nav.tabbar { display: none; gap: 6px; }
     @media (min-width: 640px) { nav.tabbar { display: flex; } }
 
-    .tabbtn { padding: 8px 12px; border-radius: 12px; border: 1px solid var(--border); background: #fff; cursor: pointer; font-size: 14px; }
+    .tabbtn {
+      padding: 6px 10px; /* nhỏ hơn mặc định */
+      border-radius: 8px;
+      font-size: 13px;   /* chữ nhỏ lại chút */
+    }
     .tabbtn.active { background: var(--primary); color:#fff; border-color: var(--primary); }
     .tabbtn:hover { background: #f8fafc; }
 
@@ -96,6 +100,7 @@
         <div id="xpChip" class="chip">XP: <b>0</b></div>
         <nav class="tabbar">
           <button class="tabbtn active" data-tab="home">Trang chủ</button>
+          <button class="tabbtn" data-tab="intro">Giới thiệu</button>
           <button class="tabbtn" data-tab="learn">Khám phá linh kiện</button>
           <button class="tabbtn" data-tab="quiz">Quiz nhanh</button>
           <button class="tabbtn" data-tab="gates">Cổng logic</button>
@@ -130,13 +135,28 @@
           <div class="mt8 muted">Bấm để bắt đầu →</div>
         </button>
         <div class="card" style="grid-column: 1/-1">
-          <h2>Mục tiêu học phần</h2>
+          <h2>Mục tiêu Mini game</h2>
           <ul class="list muted">
             <li>Nhận diện linh kiện cơ bản và công dụng.</li>
             <li>Làm quen khái niệm logic số (AND/OR/XOR...).</li>
             <li>Đọc mã màu điện trở để xác định giá trị.</li>
           </ul>
         </div>
+      </div>
+    </section>
+
+    <!-- INTRO -->
+    <section id="tab-intro" hidden>
+      <div class="card" style="max-width:720px;margin:auto">
+        <h2>Khoa Kỹ Thuật Điện Tử 1 – Học Viện Công Nghệ Bưu Chính Viễn Thông</h2>
+        <p><b>Địa chỉ:</b> Tầng 9, nhà A2, Học Viện Công Nghệ Bưu Chính Viễn Thông,<br>
+        94 Trần Phú, Hà Đông, Hà Nội</p>
+        <p><b>Fanpage:</b> <a href="https://www.facebook.com/kythuatdientu1.ptit" target="_blank">facebook.com/kythuatdientu1.ptit</a></p>
+        <p><b>Địa chỉ khác:</b> Km10 - Nguyễn Trãi - Hà Đông, Hà Nội, Việt Nam</p>
+        <p><b>Điện thoại:</b> 094 175 02 09</p>
+        <p><b>Email:</b> <a href="mailto:ktdt1.ptit@gmail.com">ktdt1.ptit@gmail.com</a></p>
+        <p><b>TikTok:</b> <a href="https://tiktok.com/@khoa.ktdt.1.ptit" target="_blank">tiktok.com/@khoa.ktdt.1.ptit</a></p>
+        <p><b>Website:</b> <a href="https://sea.ptit.edu.vn" target="_blank">sea.ptit.edu.vn</a></p>
       </div>
     </section>
 
@@ -231,7 +251,7 @@
   </main>
 
   <footer>
-    © <span id="year"></span> – Khoa Kỹ thuật Điện tử 1. Dùng tự do cho lớp tân sinh viên.
+    © <span id="year"></span> – Khoa Kỹ thuật Điện tử 1 - PTIT.
   </footer>
 
   <script>
@@ -246,10 +266,16 @@
     ];
 
     const QUIZ_QS = [
-      { q: 'Linh kiện nào dùng để hạn dòng cho LED?', choices: ['Tụ điện', 'Điện trở', 'Diode Zener'], answer: 1, explain: 'LED cần điện trở nối tiếp để hạn dòng và bảo vệ.' },
-      { q: 'Cổng logic nào chỉ sáng khi A=1 và B=1?', choices: ['OR', 'XOR', 'AND'], answer: 2, explain: 'AND trả về 1 khi tất cả đầu vào là 1.' },
-      { q: 'Đơn vị của tụ điện là gì?', choices: ['Ω', 'F', 'H'], answer: 1, explain: 'F (Farad); Ω là điện trở, H là độ tự cảm.' },
-      { q: 'Diode có bao nhiêu cực?', choices: ['2', '3', '4'], answer: 0, explain: 'Diode có 2 cực: Anode và Cathode.' },
+      { q: "Kỹ thuật điện tử liên quan mật thiết đến lĩnh vực nào?", choices: ["Công nghệ thông tin", "Xây dựng", "Nông nghiệp", "Y tế"], answer: 0, explain: "Điện tử gắn bó chặt chẽ với CNTT." },
+      { q: "Một trong những linh kiện cơ bản của điện tử là gì?", choices: ["Điện trở", "Ống hút", "Bút chì", "Sách"], answer: 0, explain: "Điện trở là linh kiện cơ bản nhất." },
+      { q: "Đơn vị đo điện áp là gì?", choices: ["Ampe (A)", "Vôn (V)", "Ôm (Ω)", "Oát (W)"], answer: 1, explain: "Điện áp được đo bằng đơn vị Vôn (V)." },
+      { q: "IC viết tắt của cụm từ nào?", choices: ["Integrated Circuit", "International Code", "Input Connector", "Inner Current"], answer: 0, explain: "IC là Integrated Circuit (mạch tích hợp)." },
+      { q: "Ký hiệu của điện trở trong sơ đồ mạch là gì?", choices: ["Hình vuông", "Đường ziczac", "Hình tròn", "Hình tam giác"], answer: 1, explain: "Điện trở ký hiệu bằng đường ziczac." },
+      { q: "Linh kiện nào có khả năng lưu trữ điện tích?", choices: ["Tụ điện", "Điện trở", "Cuộn cảm", "Diode"], answer: 0, explain: "Tụ điện có khả năng tích trữ điện tích." },
+      { q: "Transistor được dùng để làm gì?", choices: ["Khuếch đại và đóng ngắt", "Lưu trữ dữ liệu", "Tạo ánh sáng", "Truyền sóng radio"], answer: 0, explain: "Transistor dùng khuếch đại hoặc đóng ngắt." },
+      { q: "Đơn vị đo công suất điện là gì?", choices: ["Vôn (V)", "Ampe (A)", "Oát (W)", "Ôm (Ω)"], answer: 2, explain: "Công suất điện được đo bằng Oát (W)." },
+      { q: "Trong mã màu điện trở, màu đỏ ứng với giá trị nào?", choices: ["1", "2", "3", "4"], answer: 1, explain: "Màu đỏ = số 2 trong mã màu điện trở." },
+      { q: "Cổng logic NAND cho kết quả 0 khi nào?", choices: ["Cả hai ngõ vào đều 1", "Cả hai ngõ vào đều 0", "Một ngõ vào 1, một ngõ vào 0", "Luôn luôn bằng 1"], answer: 0, explain: "NAND chỉ bằng 0 khi cả hai ngõ vào đều 1." }
     ];
 
     const GATES = ['AND','OR','XOR','NAND','NOR','XNOR','NOT'];
