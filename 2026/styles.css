@@ -98,6 +98,11 @@ header {
 .video-section, .info-section {
     margin-bottom: 40px;
 }
+.timeline-wrapper img {
+    max-width: 90%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+}
 
 h2 {
     font-size: 2em;
