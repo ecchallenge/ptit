@@ -399,28 +399,30 @@ h1 {
 .result-table {
     width: 100%;
     border-collapse: collapse;
-    overflow: hidden;
-    border-radius: 18px;
     background: rgba(255,255,255,0.12);
 }
 
 .result-table th,
 .result-table td {
-    padding: 12px 14px;
+    border: 1px solid rgba(255,255,255,0.3); /* kẻ ô */
+    padding: 12px;
     text-align: center;
 }
 
-.result-table th {
-    background: rgba(255,255,255,0.18);
-    color: #ffffff;
-    font-weight: 800;
+/* header lớn */
+.result-table thead tr:first-child th {
+    font-size: 18px;
+    font-weight: 900;
+    background: rgba(255,255,255,0.2);
 }
 
-.result-table td {
-    color: #ffffff;
-    border-top: 1px solid rgba(255,255,255,0.12);
+/* header con */
+.result-table thead tr:nth-child(2) th {
+    font-size: 16px;
+    background: rgba(255,255,255,0.1);
 }
 
+/* hover */
 .result-table tbody tr:hover {
     background: rgba(255,255,255,0.08);
 }
