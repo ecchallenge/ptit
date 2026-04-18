@@ -1,102 +1,106 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EC Challenge 2026</title>
-    <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EC Challenge 2026 - Random Nhiệm Vụ</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="content-wrapper"> 
-        <header>
-            <div class="banner">
-                <img src="ecbanner.jpg" alt="Banner Cuộc Thi">
-            </div>
-        </header>
+  <div class="bg-overlay"></div>
 
-        <div class="separator"></div>
-
-        <div class="video-section">
-            <h2>Chủ đề: Hành Trình Tương lai</h2>
-             <!-- <iframe width="560" height="315" src= "https://www.youtube.com/embed/kq8zWldY-hA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-            <div class="timeline-wrapper">
-            <img src="timeline_new.jpg" alt="Timeline EC Challenge 2026" class="timeline-image">
-        </div>
-        </div>
-        
-        <div class="separator"></div>
-
-        <div class="image-container">
-            <div class="image-section">
-                <h2>Robot thi đấu</h2>
-                <!-- <img src = "Leanbot.jpg" alt="Competition Diagram"> -->
-                <p class="information">
-                    Trong <strong>EC Challenge 2026</strong>, các đội thi sẽ tự thiết kế và xây dựng robot nhằm tối ưu hóa việc thực hiện nhiệm vụ trên sa bàn.
-                    <br>
-                </p>                
-
-                <!-- 🔥 BOX NỔI BẬT -->
-                <div class="highlight-box">
-                    ⚠️ <strong>CHÚ Ý QUAN TRỌNG:</strong><br><br>
-                    Khác với các mùa <strong>EC Challenge 2024, 2025</strong>, 
-                    tại <strong>EC Challenge 2026</strong>, các đội thi <strong>được tự do sáng tạo robot</strong> của mình.<br><br>
-                    
-                    🚫 <strong>Robot thương mại sẽ bị hạn chế</strong>, khuyến khích các đội phát triển giải pháp riêng.
-                </div>
-
-            </div>
-
-            <div class="image-section">
-                <h2>Bản Đồ Thành Phố Xanh</h2>
-                <img src="map_new.jpg" alt="Competition Diagram">
-            </div>
-        </div>
-        
-        <div class="separator"></div>
-
-        <div class="info-section">
-            <div class="timeline-section">
-                <h2>Sơ Lược Chiến Dịch</h2>
-                <div class="timeline-item">
-                    <p><span>06/04 - 15/04/2026:</span> 
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLScEBs7cRAau262kvZjr-eTUjO4yH65zmlgYfJGsacZ89ASLpw/viewform">
-                            Link đăng ký tham gia
-                        </a>
-                    </p>
-                </div>
-                <div class="timeline-item">
-                    <p><span>09/05 - 10/05/2026:</span> Vòng loại</p>
-                </div>
-                <div class="timeline-item">
-                    <p><span>16/05/2026:</span> Vòng chung kết</p>
-                </div>
-            </div>            
-
-            <div class="document-section">
-                <h2>Tài Liệu Quan Trọng</h2>
-                <div class="document-item">
-                    <a href="https://docs.google.com/document/d/1ao0vcKNjmFXx13sCYp1DAJRl05sTvbPg/edit">
-                        Thể Lệ EC Challenge 2026
-                    </a>
-                    <span>Cập nhật: 12/04/2026</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="separator"></div>
-
-        <footer>
-            <div class="contact-info">
-                <p>Facebook: 
-                    <a href="https://facebook.com/CLBDienTuPTIT" target="_blank">
-                        facebook.com/CLBDienTuPTIT
-                    </a>
-                </p>
-            </div>
-            <div class="logo">
-                <p>&copy; CLB Điện Tử PTIT - Điện Tử PTIT Kiến Tạo Đam Mê</p>
-            </div>
-        </footer>
+  <header class="top-header">
+    <div class="logo-img">
+      <img src="logo.png" alt="EC Logo">
     </div>
+    <h1>Random 2 Nhiệm Vụ</h1>
+  </header>
+
+  <main class="container">
+    <section class="section-card">
+      <div class="section-glow"></div>
+      <h2>Nhiệm vụ 1: Đầu ra 3 cổng logic</h2>
+
+      <div class="gate-item">
+        <span class="gate-name">AND</span>
+        <span class="gate-output" id="andOutput">X</span>
+        </div>
+
+        <div class="gate-item">
+        <span class="gate-name">OR</span>
+        <span class="gate-output" id="orOutput">X</span>
+        </div>
+
+        <div class="gate-item">
+        <span class="gate-name">XOR</span>
+        <span class="gate-output" id="xorOutput">X</span>
+        </div>
+      </div>
+
+      <button class="action-btn" onclick="randomLogicOutputs()">Random đầu ra</button>
+
+      <div class="result-link-box" id="resultLinkBox" style="display: none;">
+        <a id="resultPageLink" href="#" class="result-page-link">
+          Xem tất cả bộ đầu vào phù hợp
+        </a>
+      </div>
+
+      <p class="note">Mỗi cổng sẽ random ra 0 hoặc 1 độc lập.</p>
+    </section>
+
+    <section class="section-card">
+      <div class="section-glow"></div>
+      <h2>Nhiệm vụ 2: Vị trí lõi công nghệ</h2>
+
+      <div class="single-grid">
+        <div class="cell white" id="whiteCell"></div>
+        <div class="cell black" id="blackCell"></div>
+      </div>
+
+      <button class="action-btn" onclick="randomBlackWhite()">Random ô màu</button>
+      <p class="note">Hệ thống sẽ ẩn ngẫu nhiên 1 trong 2 ô.</p>
+    </section>
+  </main>
+
+  <script>
+    function randomBit() {
+      return Math.random() < 0.5 ? 0 : 1;
+    }
+
+    function randomLogicOutputs() {
+      const andOut = randomBit();
+      const orOut = randomBit();
+      const xorOut = randomBit();
+
+      document.getElementById("andOutput").textContent = andOut;
+      document.getElementById("orOutput").textContent = orOut;
+      document.getElementById("xorOutput").textContent = xorOut;
+
+      const resultLinkBox = document.getElementById("resultLinkBox");
+      const resultPageLink = document.getElementById("resultPageLink");
+
+      resultPageLink.href = `result.html?and=${andOut}&or=${orOut}&xor=${xorOut}`;
+      resultPageLink.textContent = `Xem các bộ input phù hợp cho output (${andOut}, ${orOut}, ${xorOut})`;
+
+      resultLinkBox.style.display = "block";
+    }
+
+    function randomBlackWhite() {
+      const white = document.getElementById("whiteCell");
+      const black = document.getElementById("blackCell");
+
+      white.classList.remove("hidden");
+      black.classList.remove("hidden");
+
+      if (Math.random() < 0.5) {
+        white.classList.add("hidden");
+      } else {
+        black.classList.add("hidden");
+      }
+    }
+  </script>
 </body>
 </html>
