@@ -32,17 +32,19 @@
         <table class="result-table">
           <thead>
             <tr>
-              <th>STT</th>
+              <th rowspan="2">STT</th>
+              <th colspan="2">AND</th>
+              <th colspan="2">OR</th>
+              <th colspan="2">XOR</th>
+            </tr>
+            <!-- <tr>
               <th>A</th>
               <th>B</th>
               <th>C</th>
               <th>D</th>
               <th>E</th>
               <th>F</th>
-              <th>AND</th>
-              <th>OR</th>
-              <th>XOR</th>
-            </tr>
+            </tr> -->
           </thead>
           <tbody id="resultBody"></tbody>
         </table>
@@ -140,9 +142,6 @@
         <td>${item.d}</td>
         <td>${item.e}</td>
         <td>${item.f}</td>
-        <td>${item.andValue}</td>
-        <td>${item.orValue}</td>
-        <td>${item.xorValue}</td>
       `;
       resultBody.appendChild(row);
     });
