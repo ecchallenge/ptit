@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kết quả đầu vào phù hợp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-overlay"></div>
+
+  <header class="top-header">
+    <div class="logo-img">
+      <img src="logo.png" alt="EC Logo">
+    </div>
+    <h1>Kết quả đầu vào phù hợp</h1>
+  </header>
+
+  <main class="container result-container">
+    <section class="section-card result-card">
+      <div class="section-glow"></div>
+      <h2 id="outputTitle">Output yêu cầu</h2>
+
+      <div class="target-output-box" id="targetOutputBox"></div>
+
+      <div class="result-summary" id="resultSummary"></div>
+
+      <div class="table-wrapper">
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>A</th>
+              <th>B</th>
+              <th>C</th>
+              <th>D</th>
+              <th>E</th>
+              <th>F</th>
+              <th>AND</th>
+              <th>OR</th>
+              <th>XOR</th>
+            </tr>
+          </thead>
+          <tbody id="resultBody"></tbody>
+        </table>
+      </div>
+
+      <div class="back-link-box">
+        <a href="index.html" class="result-page-link">Quay lại trang random</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      andOut: Number(params.get("and")),
+      orOut: Number(params.get("or")),
+      xorOut: Number(params.get("xor"))
+    };
+  }
+
+  function findAllInputs(andOut, orOut, xorOut) {
+    const results = [];
+
+    for (let a = 0; a <= 1; a++) {
+      for (let b = 0; b <= 1; b++) {
+        for (let c = 0; c <= 1; c++) {
+          for (let d = 0; d <= 1; d++) {
+            for (let e = 0; e <= 1; e++) {
+              for (let f = 0; f <= 1; f++) {
+                const andValue = a & b;
+                const orValue = c | d;
+                const xorValue = e ^ f;
+
+                if (andValue === andOut && orValue === orOut && xorValue === xorOut) {
+                  const inputs = [a, b, c, d, e, f];
+                  const blackCount = inputs.reduce((sum, val) => sum + val, 0);
+                  const whiteCount = 6 - blackCount;
+
+                  // Lọc theo số lượng khối hiện có
+                  if (blackCount <= 4 && whiteCount <= 4) {
+                    results.push({
+                      a, b, c, d, e, f,
+                      andValue, orValue, xorValue,
+                      blackCount, whiteCount
+                    });
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return results;
+  }
+
+  function renderResults() {
+    const { andOut, orOut, xorOut } = getQueryParams();
+
+    const targetOutputBox = document.getElementById("targetOutputBox");
+    const resultSummary = document.getElementById("resultSummary");
+    const resultBody = document.getElementById("resultBody");
+
+    if (
+      ![0, 1].includes(andOut) ||
+      ![0, 1].includes(orOut) ||
+      ![0, 1].includes(xorOut)
+    ) {
+      targetOutputBox.innerHTML = "<p>Dữ liệu output không hợp lệ.</p>";
+      return;
+    }
+
+    targetOutputBox.innerHTML = `
+      <div class="output-chip">AND = ${andOut}</div>
+      <div class="output-chip">OR = ${orOut}</div>
+      <div class="output-chip">XOR = ${xorOut}</div>
+    `;
+
+    const results = findAllInputs(andOut, orOut, xorOut);
+
+    resultSummary.textContent =
+      `Tìm được ${results.length} bộ đầu vào phù hợp sau khi lọc điều kiện chỉ có 4 khối trắng và 4 khối đen.`;
+
+    resultBody.innerHTML = "";
+
+    results.forEach((item, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${item.a}</td>
+        <td>${item.b}</td>
+        <td>${item.c}</td>
+        <td>${item.d}</td>
+        <td>${item.e}</td>
+        <td>${item.f}</td>
+        <td>${item.andValue}</td>
+        <td>${item.orValue}</td>
+        <td>${item.xorValue}</td>
+      `;
+      resultBody.appendChild(row);
+    });
+  }
+
+  renderResults();
+</script>
+</body>
+</html>
