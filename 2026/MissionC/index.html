@@ -9,7 +9,6 @@
   <title>EC Challenge 2026 - Random Nhiệm Vụ</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
   <div class="bg-overlay"></div>
 
@@ -21,7 +20,6 @@
   </header>
 
   <main class="container">
-
     <section class="section-card">
       <div class="section-glow"></div>
       <h2>Nhiệm vụ 1: Đầu ra 3 cổng logic</h2>
@@ -29,16 +27,17 @@
       <div class="gate-item">
         <span class="gate-name">AND</span>
         <span class="gate-output" id="andOutput">X</span>
-      </div>
+        </div>
 
-      <div class="gate-item">
+        <div class="gate-item">
         <span class="gate-name">OR</span>
         <span class="gate-output" id="orOutput">X</span>
-      </div>
+        </div>
 
-      <div class="gate-item">
+        <div class="gate-item">
         <span class="gate-name">XOR</span>
         <span class="gate-output" id="xorOutput">X</span>
+        </div>
       </div>
 
       <button class="action-btn" onclick="randomLogicOutputs()">Random đầu ra</button>
@@ -49,7 +48,7 @@
         </a>
       </div>
 
-      <p class="note">Lần bấm lẻ sẽ ra bộ cố định, lần bấm chẵn sẽ random.</p>
+      <p class="note">Mỗi cổng sẽ random ra 0 hoặc 1 độc lập.</p>
     </section>
 
     <section class="section-card">
@@ -64,103 +63,44 @@
       <button class="action-btn" onclick="randomBlackWhite()">Random ô màu</button>
       <p class="note">Hệ thống sẽ ẩn ngẫu nhiên 1 trong 2 ô.</p>
     </section>
-
   </main>
 
   <script>
-  const FIXED_AND = 1;
-  const FIXED_OR = 0;
-  const FIXED_XOR = 1;
     function randomBit() {
-     // return Math.random() < 0.5 ? 0 : 1;
-     return 1;
-    }
-  let logicClickCount = 0;
-  let lastRandomKey = null;
-
-  function makeKey(andOut, orOut, xorOut) {
-    return `${andOut}${orOut}${xorOut}`;
-  }
-
-  function getRandomDifferentCombo() {
-    const allCombos = [
-      { and: 0, or: 0, xor: 0 },
-      { and: 0, or: 0, xor: 1 },
-      { and: 0, or: 1, xor: 0 },
-      { and: 0, or: 1, xor: 1 },
-      { and: 1, or: 0, xor: 0 },
-      { and: 1, or: 0, xor: 1 },
-      { and: 1, or: 1, xor: 0 },
-      { and: 1, or: 1, xor: 1 }
-    ];
-
-    const fixedKey = makeKey(FIXED_AND, FIXED_OR, FIXED_XOR);
-
-    let candidates = allCombos.filter(combo => {
-      const key = makeKey(combo.and, combo.or, combo.xor);
-
-      return key !== fixedKey && key !== lastRandomKey;
-    });
-
-    const randomIndex = Math.floor(Math.random() * candidates.length);
-    const selected = candidates[randomIndex];
-
-    lastRandomKey = makeKey(selected.and, selected.or, selected.xor);
-
-    return selected;
-  }
-
-  function setLogicOutputs(andOut, orOut, xorOut) {
-    document.getElementById("andOutput").textContent = andOut;
-    document.getElementById("orOutput").textContent = orOut;
-    document.getElementById("xorOutput").textContent = xorOut;
-
-    const resultLinkBox = document.getElementById("resultLinkBox");
-    const resultPageLink = document.getElementById("resultPageLink");
-
-    resultPageLink.href = `result.html?and=${andOut}&or=${orOut}&xor=${xorOut}`;
-    resultPageLink.textContent = `Xem các bộ input phù hợp cho output (${andOut}, ${orOut}, ${xorOut})`;
-
-    resultLinkBox.style.display = "block";
-  }
-
-  function randomLogicOutputs() {
-    logicClickCount++;
-
-    let andOut;
-    let orOut;
-    let xorOut;
-
-    if (logicClickCount % 2 === 1) {
-
-      andOut = FIXED_AND;
-      orOut = FIXED_OR;
-      xorOut = FIXED_XOR;
-    } else {
-
-      const combo = getRandomDifferentCombo();
-
-      andOut = combo.and;
-      orOut = combo.or;
-      xorOut = combo.xor;
+      return Math.random() < 0.5 ? 0 : 1;
     }
 
-    setLogicOutputs(andOut, orOut, xorOut);
-  }
+    function randomLogicOutputs() {
+      const andOut = randomBit();
+      const orOut = randomBit();
+      const xorOut = randomBit();
 
-  function randomBlackWhite() {
-    const white = document.getElementById("whiteCell");
-    const black = document.getElementById("blackCell");
+      document.getElementById("andOutput").textContent = andOut;
+      document.getElementById("orOutput").textContent = orOut;
+      document.getElementById("xorOutput").textContent = xorOut;
 
-    white.classList.remove("hidden");
-    black.classList.remove("hidden");
+      const resultLinkBox = document.getElementById("resultLinkBox");
+      const resultPageLink = document.getElementById("resultPageLink");
 
-    // if (Math.random() < 0.5) {
-      white.classList.add("hidden");
-    //} else {
-      //black.classList.add("hidden");
-    //} 
-  }
-</script>
+      resultPageLink.href = `result.html?and=${andOut}&or=${orOut}&xor=${xorOut}`;
+      resultPageLink.textContent = `Xem các bộ input phù hợp cho output (${andOut}, ${orOut}, ${xorOut})`;
+
+      resultLinkBox.style.display = "block";
+    }
+
+    function randomBlackWhite() {
+      const white = document.getElementById("whiteCell");
+      const black = document.getElementById("blackCell");
+
+      white.classList.remove("hidden");
+      black.classList.remove("hidden");
+
+    //  if (Math.random() < 0.5) {
+        white.classList.add("hidden");
+    //  } else {
+    //    black.classList.add("hidden");
+     // }
+    }
+  </script>
 </body>
 </html>
